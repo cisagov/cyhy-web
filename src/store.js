@@ -11,6 +11,7 @@ export const mutations = {
     state.accessToken = accessToken;
     state.refreshToken = refreshToken;
     state.viewer = viewer;
+    localStorage.setItem("refreshToken", refreshToken); // persist
   },
   setViewer(state, username) {
     state.viewer = username;
@@ -63,11 +64,12 @@ export const actions = {
 export const state = {
   viewer: null,
   accessToken: null,
-  refreshToken: null
+  refreshToken: localStorage.getItem("refreshToken") || null
 };
 
 export default new Vuex.Store({
   mutations,
   actions,
-  state
+  state,
+  strict: process.env.NODE_ENV !== "production" // expensive
 });
