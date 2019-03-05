@@ -35,7 +35,7 @@ export default {
     ...mapState(["accessToken", "refreshToken", "viewer"])
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit() {
       this.submitted = true;
       const { username, password } = this;
       const { dispatch } = this.$store;
