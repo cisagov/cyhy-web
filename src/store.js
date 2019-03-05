@@ -15,16 +15,20 @@ export const mutations = {
   },
   setViewer(state, username) {
     state.viewer = username;
+  },
+  logout(state) {
+    state.accessToken = null;
+    state.refreshToken = null;
+    state.viewer = null;
+    localStorage.removeItem("refreshToken"); // unpersist
   }
 };
 
 export const actions = {
   async auth({ commit }, { username, password }) {
     const response = await graphqlClient.mutate({
-      // It is important to not use the
-      // ES6 template syntax for variables
-      // directly inside the `gql` query,
-      // because this would make it impossible
+      // It is important to not use the ES6 template syntax for variables
+      // directly inside the `gql` query, because this would make it impossible
       // for Babel to optimize the code.
       mutation: gql`
         mutation($username: String!, $password: String!) {
@@ -58,6 +62,9 @@ export const actions = {
       refreshToken: response.data.auth.result.refreshToken,
       viewer: response.data.auth.result.username
     });
+  },
+  async logout({ commit }) {
+    commit("logout");
   }
 };
 
@@ -67,9 +74,14 @@ export const state = {
   refreshToken: localStorage.getItem("refreshToken") || null
 };
 
+export const getters = {
+  isLoggedIn: state => !!state.accessToken
+};
+
 export default new Vuex.Store({
   mutations,
   actions,
   state,
+  getters,
   strict: process.env.NODE_ENV !== "production" // expensive
 });
