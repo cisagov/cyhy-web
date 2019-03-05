@@ -31,6 +31,9 @@ import { mapState } from "vuex";
 
 export default {
   name: "Login",
+  data: function() {
+    return { username: "", password: "" };
+  },
   computed: {
     ...mapState(["accessToken", "refreshToken", "viewer"])
   },
