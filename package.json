@@ -10,8 +10,8 @@
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
-    "apollo-link-context": "^1.0.14",
-    "apollo-link-http": "^1.5.11",
+    "apollo-link-context": "^1.0.15",
+    "apollo-link-http": "^1.5.12",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "vue": "^2.6.6",
@@ -38,7 +38,7 @@
     "babel-plugin-graphql-tag": "^2.0.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.15.1",
     "eslint-plugin-vue": "^5.0.0",
     "vue-template-compiler": "^2.5.21"
   },
