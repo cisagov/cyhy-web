@@ -35,7 +35,7 @@ export default {
     return { username: "", password: "" };
   },
   computed: {
-    ...mapState(["accessToken", "refreshToken", "viewer"])
+    ...mapState("auth", ["accessToken", "refreshToken", "viewer"])
   },
   methods: {
     handleSubmit() {
@@ -43,7 +43,7 @@ export default {
       const { username, password } = this;
       const { dispatch } = this.$store;
       if (username && password) {
-        dispatch("auth", {
+        dispatch("auth/auth", {
           username,
           password
         });

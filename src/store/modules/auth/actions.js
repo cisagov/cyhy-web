@@ -1,31 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import graphqlClient from "@/utils/graphql";
 import gql from "graphql-tag";
 
-import graphqlClient from "@/utils/graphql";
-
-Vue.use(Vuex);
-
-export const mutations = {
-  setTokens(state, { accessToken, refreshToken, viewer }) {
-    state.accessToken = accessToken;
-    state.refreshToken = refreshToken;
-    state.viewer = viewer;
-    localStorage.setItem("refreshToken", refreshToken); // persist
-  },
-  setViewer(state, username) {
-    state.viewer = username;
-  },
-  logout(state) {
-    state.accessToken = null;
-    state.refreshToken = null;
-    state.viewer = null;
-    localStorage.removeItem("refreshToken"); // unpersist
-  }
-};
-
-export const actions = {
-  async auth({ commit }, { username, password }) {
+export default {
+  async auth(
+    // eslint-disable-next-line
+    { dispatch, commit, getters, rootGetters },
+    { username, password }
+  ) {
     const response = await graphqlClient.mutate({
       // It is important to not use the ES6 template syntax for variables
       // directly inside the `gql` query, because this would make it impossible
@@ -54,8 +35,7 @@ export const actions = {
         password: password
       }
     });
-    // Trigger the `setTokens` mutation
-    // which is defined above.
+    // Trigger the `setTokens` mutation which is defined above.
     // TODO handle failure
     commit("setTokens", {
       accessToken: response.data.auth.result.accessToken,
@@ -67,21 +47,3 @@ export const actions = {
     commit("logout");
   }
 };
-
-export const state = {
-  viewer: null,
-  accessToken: null,
-  refreshToken: localStorage.getItem("refreshToken") || null
-};
-
-export const getters = {
-  isLoggedIn: state => !!state.accessToken
-};
-
-export default new Vuex.Store({
-  mutations,
-  actions,
-  state,
-  getters,
-  strict: process.env.NODE_ENV !== "production" // expensive
-});
