@@ -45,5 +45,21 @@ export default {
   },
   async logout({ commit }) {
     commit("logout");
+  },
+  async viewer(
+    // eslint-disable-next-line
+    { dispatch, commit, getters, rootGetters }
+  ) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query {
+          viewer {
+            username
+          }
+        }
+      `
+    });
+    // eslint-disable-next-line no-console
+    console.log(response);
   }
 };

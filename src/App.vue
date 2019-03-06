@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/login">Login</router-link> |
+      <a @click="viewer">Viewer</a> |
       <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
     </div>
     <router-view />
@@ -21,6 +22,10 @@ export default {
       this.$store.dispatch("auth/logout").then(() => {
         this.$router.push("/login");
       });
+    },
+    viewer: function() {
+      console.log("click");
+      this.$store.dispatch("auth/viewer");
     }
   }
 };
