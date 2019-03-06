@@ -21,7 +21,6 @@ const authLink = setContext((_, { headers }) => {
 export default new ApolloClient({
   // Provide the URL to the API server.
   link: authLink.concat(httpLink),
-  // Using a cache for blazingly
-  // fast subsequent queries.
+  // Using a cache for blazingly fast subsequent queries.
   cache: new InMemoryCache()
 });
