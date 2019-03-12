@@ -13,6 +13,7 @@
     "apollo-link-context": "^1.0.15",
     "apollo-link-error": "^1.1.8",
     "apollo-link-http": "^1.5.12",
+    "apollo-link-token-refresh": "^0.2.5",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0",
