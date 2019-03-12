@@ -1,8 +1,21 @@
+// define the mutations of this Vuex store module
+import jwtDecode from "jwt-decode";
+
+function calculateSkew(token) {
+  // calculate the local clock skew from the server
+  // this is needed so the client can accurately anticipate token expiration
+  // this assumes that the server has issued the token very recently
+  const jwt = jwtDecode(token);
+  const local_time = Date.now() / 1000;
+  return jwt.iat - local_time;
+}
+
 export default {
   setTokens(state, { accessToken, refreshToken, viewer }) {
     state.accessToken = accessToken;
     state.refreshToken = refreshToken;
     state.viewer = viewer;
+    state.clockSkew = calculateSkew(accessToken);
     localStorage.setItem("refreshToken", refreshToken); // persist
   },
   setViewer(state, username) {
@@ -13,5 +26,8 @@ export default {
     state.refreshToken = null;
     state.viewer = null;
     localStorage.removeItem("refreshToken"); // unpersist
+  },
+  refresh(state, { accessToken }) {
+    state.accessToken = accessToken;
   }
 };
