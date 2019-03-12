@@ -1,3 +1,5 @@
+// define the actions of this Vuex store module
+
 import graphqlClient from "@/utils/graphql";
 import gql from "graphql-tag";
 
@@ -60,6 +62,6 @@ export default {
       `
     });
     // eslint-disable-next-line no-console
-    console.log(response);
+    console.log(response.data);
   }
 };

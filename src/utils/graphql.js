@@ -25,7 +25,7 @@ const httpLink = new HttpLink({ uri: "http://localhost:5000/graphql" });
 // a link to inject the accessToken into the authentication headers when possible
 const authLink = setContext((_, { headers }) => {
   const token = store.state.auth.accessToken;
-  console.log(">>> should refresh >>> ", shouldRefreshAccessToken());
+  console.debug(">>> should refresh >>> ", shouldRefreshAccessToken());
   // return the headers to the context so httpLink can read them
   if (token) {
     return {
@@ -76,7 +76,7 @@ const defaultOptions = {
     errorPolicy: "ignore"
   },
   query: {
-    fetchPolicy: "network-only",
+    fetchPolicy: "no-cache",
     errorPolicy: "all"
   }
 };
