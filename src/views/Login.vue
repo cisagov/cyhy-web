@@ -15,10 +15,22 @@
       </div>
     </form>
     <p>
-      accessToken: <code>{{ accessToken }}</code>
+      accessToken:
+      <a
+        :href="'https://jwt.io/#debugger-io?token=' + accessToken"
+        target="_blank"
+      >
+        <code>{{ accessToken }}</code></a
+      >
     </p>
     <p>
-      refreshToken: <code>{{ refreshToken }}</code>
+      refreshToken:
+      <a
+        :href="'https://jwt.io/#debugger-io?token=' + refreshToken"
+        target="_blank"
+      >
+        <code>{{ refreshToken }}</code></a
+      >
     </p>
     <p>
       username: <code>{{ viewer }}</code>
