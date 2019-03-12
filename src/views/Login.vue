@@ -52,3 +52,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+code {
+  display: inline-block;
+  padding: 10px;
+  border: solid;
+  width: 50%;
+  overflow-wrap: break-word;
+}
+</style>
