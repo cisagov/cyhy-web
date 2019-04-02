@@ -16,7 +16,8 @@ export default {
     state.refreshToken = refreshToken;
     state.viewer = viewer;
     state.clockSkew = calculateSkew(accessToken);
-    localStorage.setItem("refreshToken", refreshToken); // persist
+    // refresh tokens persist unlike access tokens
+    localStorage.setItem("refreshToken", refreshToken);
   },
   setViewer(state, username) {
     state.viewer = username;
@@ -25,7 +26,12 @@ export default {
     state.accessToken = null;
     state.refreshToken = null;
     state.viewer = null;
-    localStorage.removeItem("refreshToken"); // unpersist
+    // when a user logs out, we need to remove the refresh token so they cannot
+    // refresh and access token in the future without first re-authenticating
+    localStorage.removeItem("refreshToken");
+  },
+  clearAccessToken(state) {
+    state.accessToken = null;
   },
   refresh(state, { accessToken }) {
     state.accessToken = accessToken;

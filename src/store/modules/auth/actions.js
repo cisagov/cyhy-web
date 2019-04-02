@@ -37,7 +37,7 @@ export default {
         password: password
       }
     });
-    // Trigger the `setTokens` mutation which is defined above.
+    // Trigger the `setTokens` mutation.
     // TODO handle failure
     commit("setTokens", {
       accessToken: response.data.auth.result.accessToken,
@@ -63,5 +63,24 @@ export default {
     });
     // eslint-disable-next-line no-console
     console.log(response.data);
+  },
+  async refresh({ commit }) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation {
+          refresh {
+            result {
+              accessToken
+              message
+            }
+          }
+        }
+      `,
+      // tell the graphql client to use the refreshToken in the Authentication header
+      context: { useRefreshToken: true }
+    });
+    commit("refresh", {
+      accessToken: response.data.refresh.result.accessToken
+    });
   }
 };
