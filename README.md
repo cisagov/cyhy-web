@@ -50,7 +50,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   - [ ] or https://stackoverflow.com/questions/50965347/how-to-execute-an-async-fetch-request-and-then-retry-last-failed-request/51321068#51321068
   - [ ] from: https://github.com/apollographql/apollo-link/issues/646
 - [x] Use refreshToken when context says to. How do we read the context?
+- [ ] Refresh request if being made
+  - [x] Refresh token sent correctly
+  - [x] valid access token is being returned. (new, not fresh)
+  - [x] new access token is being saved in the stored
+  - [ ] click actions continue to work
 
-Link dump:
+## Link dump:
 
 - Manual retry link: https://stackoverflow.com/questions/50965347/how-to-execute-an-async-fetch-request-and-then-retry-last-failed-request/51321068#51321068

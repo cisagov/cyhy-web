@@ -65,7 +65,7 @@ const refreshLink = new TokenRefreshLink({
   // This is a name of access token field in response. In some scenarios we want to
   // pass additional payload with access token, i.e. new refresh token, so this field
   // could be the object's name
-  // accessTokenField: "accessToken",
+  accessTokenField: "accessToken",
 
   // Indicates the current state of access token expiration.
   // If token not yet expired or user doesn't have a token (guest) true should
@@ -76,21 +76,36 @@ const refreshLink = new TokenRefreshLink({
 
   // Function covers fetch call with request fresh access token
   fetchAccessToken: () => {
-    store.commit("auth/clearAccessToken");
-    store.dispatch("auth/refresh");
-  }
+    return new Promise(function() {
+      console.debug(">>> fetchAccessToken >>>");
+      store.commit("auth/clearAccessToken");
+      store.dispatch("auth/refresh");
+    });
+  },
 
   // Callback which receives a fresh token from Response.
   // From here we can save token to the storage
-  // handleFetch: accessToken => {},
+  handleFetch: accessToken => {
+    console.debug(">>> handleFetch >>> ", accessToken);
+  },
 
   // This is optional. It could be used to override internal function to manually parse
   // and extract your token from server response
-  // handleResponse: (operation, accessTokenField) => response => any,
+  handleResponse: (operation, accessTokenField) => response => {
+    console.debug(
+      ">>> handleResponse >>> ",
+      operation,
+      accessTokenField,
+      response
+    );
+  },
 
   // Token fetch error callback. Allows to run additional actions like logout.
   // Don't forget to handle Error if you are using this option
-  // handleError: err => {}
+  handleError: err => {
+    console.warn("Your refresh token is invalid. Try to relogin");
+    console.error(err);
+  }
 });
 
 // this link will handle errors and log the user out if required
