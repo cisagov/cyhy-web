@@ -82,5 +82,6 @@ export default {
     commit("refresh", {
       accessToken: response.data.refresh.result.accessToken
     });
+    return response; // Returning the response for the apollo-link to use
   }
 };

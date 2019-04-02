@@ -76,10 +76,12 @@ const refreshLink = new TokenRefreshLink({
 
   // Function covers fetch call with request fresh access token
   fetchAccessToken: () => {
-    return new Promise(function() {
+    return new Promise(function(resolve, reject) {
       console.debug(">>> fetchAccessToken >>>");
       store.commit("auth/clearAccessToken");
-      store.dispatch("auth/refresh");
+      const response = store.dispatch("auth/refresh");
+      console.debug(">>> fetachAccessToken response >>>", response);
+      resolve(response);
     });
   },
 
@@ -92,12 +94,12 @@ const refreshLink = new TokenRefreshLink({
   // This is optional. It could be used to override internal function to manually parse
   // and extract your token from server response
   handleResponse: (operation, accessTokenField) => response => {
-    console.debug(
-      ">>> handleResponse >>> ",
-      operation,
-      accessTokenField,
-      response
-    );
+    console.debug(">>> handleResponse op >>> ", operation);
+    console.debug(">>> handleResponse atf >>> ", accessTokenField);
+    console.debug(">>> handleResponse resp >>> ", response);
+    const token = response.data.refresh.result.accessToken;
+    // make the return value match the expectations of apollo-link-token-refresh
+    return { [accessTokenField]: token };
   },
 
   // Token fetch error callback. Allows to run additional actions like logout.
