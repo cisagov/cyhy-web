@@ -24,10 +24,6 @@ function shouldRefreshAccessToken() {
   // calculate what the server time is using the previously measured skew
   const server_time = local_time + store.state.auth.clockSkew;
   // check if the token is within a valid time window
-  console.debug(
-    ">>> should refresh access token >>> ",
-    server_time < jwt.nbf || server_time > jwt.exp
-  );
   return server_time < jwt.nbf || server_time > jwt.exp;
 }
 
@@ -38,14 +34,13 @@ const httpLink = new HttpLink({ uri: "http://localhost:5000/graphql" });
 // a link to inject the accessToken into the authentication headers when possible
 const authLink = setContext((request, previousContext) => {
   var token;
+  // when we are refreshing an accessToken we need to send the refreshToken
   if (previousContext.useRefreshToken) {
     token = store.state.auth.refreshToken;
   } else {
     token = store.state.auth.accessToken;
   }
 
-  console.debug(">>> AUTHLINK request >>> ", request);
-  console.debug(">>> AUTHLINK previousContext >>> ", previousContext);
   if (token) {
     // return the headers to the context so httpLink can read them
     return {
@@ -76,27 +71,32 @@ const refreshLink = new TokenRefreshLink({
 
   // Function covers fetch call with request fresh access token
   fetchAccessToken: () => {
+    // eslint-disable-next-line no-unused-vars
     return new Promise(function(resolve, reject) {
-      console.debug(">>> fetchAccessToken >>>");
+      // clear the current accessToken so that shouldRefresh doesn't recursively trigger
       store.commit("auth/clearAccessToken");
+      // refresh the accessToken
       const response = store.dispatch("auth/refresh");
-      console.debug(">>> fetachAccessToken response >>>", response);
+      // since we're using apollo-link-token-refresh we need to finish implementing
+      // the process that it requires.  At this point the access token has been returned
+      // and saved in the store.
       resolve(response);
     });
   },
 
   // Callback which receives a fresh token from Response.
   // From here we can save token to the storage
+  // eslint-disable-next-line no-unused-vars
   handleFetch: accessToken => {
-    console.debug(">>> handleFetch >>> ", accessToken);
+    // The token was already saved.  This is just a required noop
   },
 
   // This is optional. It could be used to override internal function to manually parse
   // and extract your token from server response
   handleResponse: (operation, accessTokenField) => response => {
-    console.debug(">>> handleResponse op >>> ", operation);
-    console.debug(">>> handleResponse atf >>> ", accessTokenField);
-    console.debug(">>> handleResponse resp >>> ", response);
+    // the default extract implementation of apollo-link-token-refresh doesn't handle
+    // our graphql response.  So we need to extract the token, and return it in the
+    // format it expects.
     const token = response.data.refresh.result.accessToken;
     // make the return value match the expectations of apollo-link-token-refresh
     return { [accessTokenField]: token };
@@ -105,7 +105,9 @@ const refreshLink = new TokenRefreshLink({
   // Token fetch error callback. Allows to run additional actions like logout.
   // Don't forget to handle Error if you are using this option
   handleError: err => {
+    // eslint-disable-next-line no-console
     console.warn("Your refresh token is invalid. Try to relogin");
+    // eslint-disable-next-line no-console
     console.error(err);
   }
 });
