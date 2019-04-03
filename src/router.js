@@ -39,8 +39,7 @@ export default new Router({
     {
       path: "/diag",
       name: "diagnostics",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Diag.vue")
+      component: () => import(/* webpackChunkName: "diag" */ "./views/Diag.vue")
     }
   ]
 });
