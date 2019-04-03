@@ -1,40 +1,39 @@
-<template>
-  <div class="login">
-    <h1>This is the login page</h1>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" v-model="username" name="username" />
-      </div>
-      <div class="form-group">
-        <label htmlFor="password">Password</label>
-        <input type="password" v-model="password" name="password" />
-      </div>
-      <div class="form-group">
-        <button>Login</button>
-      </div>
-    </form>
-    <p>
-      accessToken:
-      <a
-        :href="'https://jwt.io/#debugger-io?token=' + accessToken"
-        target="_blank"
-      >
-        <code>{{ accessToken }}</code></a
-      >
-    </p>
-    <p>
-      refreshToken:
-      <a
-        :href="'https://jwt.io/#debugger-io?token=' + refreshToken"
-        target="_blank"
-      >
-        <code>{{ refreshToken }}</code></a
-      >
-    </p>
-    <p>
-      username: <code>{{ viewer }}</code>
-    </p>
+<template lang="html">
+  <div class="background">
+    <sui-grid centered vertical-align="middle">
+      <sui-grid-column>
+        <h2 is="sui-header" color="violet" image>
+          <sui-image src="static/images/logo.png" />
+          <sui-header-content>Log-in to your account</sui-header-content>
+        </h2>
+
+        <sui-form @submit.prevent="handleSubmit">
+          <sui-segment stacked>
+            <sui-form-field>
+              <sui-input
+                type="text"
+                placeholder="Username"
+                icon="user"
+                icon-position="left"
+                v-model="username"
+              />
+            </sui-form-field>
+            <sui-form-field>
+              <sui-input
+                type="password"
+                placeholder="Password"
+                icon="lock"
+                icon-position="left"
+                v-model="password"
+              />
+            </sui-form-field>
+            <sui-button size="large" color="violet" fluid>Login</sui-button>
+          </sui-segment>
+        </sui-form>
+
+        <sui-message>New to us? <a href="#">Sign Up</a></sui-message>
+      </sui-grid-column>
+    </sui-grid>
   </div>
 </template>
 
@@ -46,9 +45,7 @@ export default {
   data: function() {
     return { username: "", password: "" };
   },
-  computed: {
-    ...mapState("auth", ["accessToken", "refreshToken", "viewer"])
-  },
+  computed: {},
   methods: {
     handleSubmit() {
       this.submitted = true;
@@ -65,12 +62,19 @@ export default {
 };
 </script>
 
-<style scoped>
-code {
-  display: inline-block;
-  padding: 10px;
-  border: solid;
-  width: 50%;
-  overflow-wrap: break-word;
+<style lang="css" scoped>
+.background {
+  background-color: #DADADA !important;
+  height: 100vh;
+  margin: 1em 0;
+}
+
+.grid {
+  height: 100%;
+}
+
+.column {
+  max-width: 450px;
+  text-align: center !important;
 }
 </style>

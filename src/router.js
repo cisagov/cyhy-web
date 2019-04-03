@@ -35,6 +35,12 @@ export default new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/diag",
+      name: "diagnostics",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Diag.vue")
     }
   ]
 });
