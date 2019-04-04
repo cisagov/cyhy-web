@@ -7,21 +7,21 @@ export default {
   async auth(
     // eslint-disable-next-line
     { dispatch, commit, getters, rootGetters },
-    { username, password }
+    { email, password }
   ) {
     const response = await graphqlClient.mutate({
       // It is important to not use the ES6 template syntax for variables
       // directly inside the `gql` query, because this would make it impossible
       // for Babel to optimize the code.
       mutation: gql`
-        mutation($username: String!, $password: String!) {
-          auth(username: $username, password: $password) {
+        mutation($email: String!, $password: String!) {
+          auth(email: $email, password: $password) {
             result {
               __typename
               ... on AuthField {
                 accessToken
                 refreshToken
-                username
+                uid
                 message
               }
               ... on ResponseMessageField {
@@ -33,7 +33,7 @@ export default {
         }
       `,
       variables: {
-        username: username,
+        email: email,
         password: password
       }
     });
@@ -42,7 +42,7 @@ export default {
     commit("setTokens", {
       accessToken: response.data.auth.result.accessToken,
       refreshToken: response.data.auth.result.refreshToken,
-      viewer: response.data.auth.result.username
+      viewer: response.data.auth.result.uid
     });
   },
   async logout({ commit }) {
@@ -56,7 +56,7 @@ export default {
       query: gql`
         query {
           viewer {
-            username
+            email
           }
         }
       `

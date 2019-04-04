@@ -11,11 +11,11 @@
           <sui-segment stacked>
             <sui-form-field>
               <sui-input
-                type="text"
-                placeholder="Username"
+                type="email"
+                placeholder="E-mail address"
                 icon="user"
                 icon-position="left"
-                v-model="username"
+                v-model="email"
               />
             </sui-form-field>
             <sui-form-field>
@@ -43,17 +43,17 @@ import { mapState } from "vuex";
 export default {
   name: "Login",
   data: function() {
-    return { username: "", password: "" };
+    return { email: "", password: "" };
   },
   computed: {},
   methods: {
     handleSubmit() {
       this.submitted = true;
-      const { username, password } = this;
+      const { email, password } = this;
       const { dispatch } = this.$store;
-      if (username && password) {
+      if (email && password) {
         dispatch("auth/auth", {
-          username,
+          email,
           password
         });
       }
