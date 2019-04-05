@@ -1,12 +1,9 @@
 {
-  "name": "cyhy-web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
@@ -48,7 +45,6 @@
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
-    "root": true,
     "env": {
       "node": true
     },
@@ -56,19 +52,23 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "root": true,
+    "rules": {}
   },
+  "name": "cyhy-web",
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve"
+  },
+  "version": "0.1.0"
 }

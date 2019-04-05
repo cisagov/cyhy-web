@@ -1,12 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false
-      }
-    ]
-  ],
   "plugins": [
     "graphql-tag",
     "transform-vue-jsx",
@@ -25,5 +17,13 @@
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-numeric-separator",
     "@babel/plugin-proposal-throw-expressions"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ]
   ]
 }
