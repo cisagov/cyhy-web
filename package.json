@@ -35,7 +35,7 @@
     "@babel/preset-env": "^7.4.3",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-service": "^3.5.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-graphql-tag": "^2.1.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
