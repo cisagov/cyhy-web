@@ -2,8 +2,8 @@
   <div class="background">
     <sui-grid centered vertical-align="middle">
       <sui-grid-column>
+        <sui-image src="ch.svg" centered />
         <h2 is="sui-header" color="violet" image>
-          <sui-image src="static/images/logo.png" />
           <sui-header-content>Log-in to your account</sui-header-content>
         </h2>
 

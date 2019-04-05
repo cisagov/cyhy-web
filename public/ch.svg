@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="1120 192 320 320" width="320" height="320">
+  <defs/>
+  <metadata> Produced by OmniGraffle 7.10.2
+    <dc:date>2019-04-04 19:39:07 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" fill="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1" stroke="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_36">
+        <path d="M 1248 448 L 1184 448 L 1184 512 L 1376 512 L 1376 448 L 1312 448 L 1312 384 L 1248 384 Z" fill="white"/>
+      </g>
+      <g id="Graphic_30">
+        <rect x="1376" y="384" width="64" height="64" fill="white"/>
+      </g>
+      <g id="Graphic_27">
+        <rect x="1376" y="256" width="64" height="64" fill="white"/>
+      </g>
+      <g id="Graphic_26">
+        <rect x="1120" y="256" width="64" height="192" fill="white"/>
+      </g>
+      <g id="Graphic_35">
+        <path d="M 1248 256 L 1248 320 L 1312 320 L 1312 256 L 1376 256 L 1376 192 L 1184 192 L 1184 256 Z" fill="white"/>
+      </g>
+    </g>
+  </g>
+</svg>
