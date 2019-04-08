@@ -9,7 +9,8 @@ const state = {
   clockSkew: 0,
   accessToken: null,
   // load the refreshToken from storage if possible
-  refreshToken: localStorage.getItem("refreshToken") || null
+  refreshToken: localStorage.getItem("refreshToken") || null,
+  errorMessage: null
 };
 
 export default {

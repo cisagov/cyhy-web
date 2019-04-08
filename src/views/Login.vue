@@ -27,11 +27,23 @@
                 v-model="password"
               />
             </sui-form-field>
-            <sui-button size="large" color="violet" fluid>Login</sui-button>
+            <sui-button
+              size="large"
+              color="violet"
+              fluid
+              :loading="submitted"
+              :disabled="submitted"
+              >Login</sui-button
+            >
           </sui-segment>
         </sui-form>
-
-        <sui-message>New to us? <a href="#">Sign Up</a></sui-message>
+        <div v-if="errorMessage" class="ui negative message">
+          <div class="header">
+            {{ errorMessage }}
+          </div>
+          <p>Please verify your e-mail and password are correct.</p>
+        </div>
+        <sui-message>New to CyHy? <a href="#">Sign Up</a></sui-message>
       </sui-grid-column>
     </sui-grid>
   </div>
@@ -43,9 +55,9 @@ import { mapState } from "vuex";
 export default {
   name: "Login",
   data: function() {
-    return { email: "", password: "" };
+    return { email: "", password: "", submitted: false };
   },
-  computed: {},
+  computed: { ...mapState("auth", ["errorMessage"]) },
   methods: {
     handleSubmit() {
       this.submitted = true;
@@ -56,6 +68,14 @@ export default {
           email,
           password
         });
+      }
+    }
+  },
+  watch: {
+    errorMessage(newValue, oldValue) {
+      if (newValue != null) {
+        // if the error message is set, clear submitted flag so the user can try again.
+        this.submitted = false;
       }
     }
   }

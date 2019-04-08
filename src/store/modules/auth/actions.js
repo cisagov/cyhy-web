@@ -9,6 +9,7 @@ export default {
     { dispatch, commit, getters, rootGetters },
     { email, password }
   ) {
+    commit("loginStart");
     const response = await graphqlClient.mutate({
       // It is important to not use the ES6 template syntax for variables
       // directly inside the `gql` query, because this would make it impossible
@@ -37,16 +38,19 @@ export default {
         password: password
       }
     });
-    if (response.isSuccess != false) {
+    if (response.data.auth.result.isSuccess == false) {
+      // failure
+      commit("loginFailure", {
+        message: response.data.auth.result.message
+      });
+    } else {
       // success
-      commit("login", {
+      commit("loginSuccess", {
         // Trigger the `login` mutation.
         accessToken: response.data.auth.result.accessToken,
         refreshToken: response.data.auth.result.refreshToken,
         viewer: response.data.auth.result.uid
       });
-    } else {
-      // failure
     }
   },
   async logout({ commit }) {

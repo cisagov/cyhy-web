@@ -11,13 +11,20 @@ function calculateSkew(token) {
 }
 
 export default {
-  login(state, { accessToken, refreshToken, viewer }) {
+  loginStart(state) {
+    state.errorMessage = null;
+  },
+  loginSuccess(state, { accessToken, refreshToken, viewer }) {
+    state.errorMessage = null;
     state.accessToken = accessToken;
     state.refreshToken = refreshToken;
     state.viewer = viewer;
     state.clockSkew = calculateSkew(accessToken);
     // refresh tokens persist unlike access tokens
     localStorage.setItem("refreshToken", refreshToken);
+  },
+  loginFailure(state, { message }) {
+    state.errorMessage = message;
   },
   setViewer(state, username) {
     state.viewer = username;
