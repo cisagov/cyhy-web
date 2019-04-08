@@ -37,13 +37,17 @@ export default {
         password: password
       }
     });
-    // Trigger the `setTokens` mutation.
-    // TODO handle failure
-    commit("setTokens", {
-      accessToken: response.data.auth.result.accessToken,
-      refreshToken: response.data.auth.result.refreshToken,
-      viewer: response.data.auth.result.uid
-    });
+    if (response.isSuccess != false) {
+      // success
+      commit("login", {
+        // Trigger the `login` mutation.
+        accessToken: response.data.auth.result.accessToken,
+        refreshToken: response.data.auth.result.refreshToken,
+        viewer: response.data.auth.result.uid
+      });
+    } else {
+      // failure
+    }
   },
   async logout({ commit }) {
     commit("logout");

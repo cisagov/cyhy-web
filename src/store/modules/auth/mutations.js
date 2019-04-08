@@ -11,7 +11,7 @@ function calculateSkew(token) {
 }
 
 export default {
-  setTokens(state, { accessToken, refreshToken, viewer }) {
+  login(state, { accessToken, refreshToken, viewer }) {
     state.accessToken = accessToken;
     state.refreshToken = refreshToken;
     state.viewer = viewer;
