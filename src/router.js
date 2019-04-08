@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-//import Home from "./views/Home.vue";
+import store from "./store";
 
 Vue.use(Router);
 
@@ -8,18 +8,25 @@ Vue.use(Router);
 // this generates a separate chunk (component.[hash].js) for each route
 // which is lazy-loaded when the route is visited.
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
       name: "home",
-      component: () => import(/* webpackChunkName: "home" */ "./views/Home.vue")
+      component: () =>
+        import(/* webpackChunkName: "home" */ "./views/Home.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/about",
       name: "about",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "about" */ "./views/About.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/login",
@@ -43,3 +50,26 @@ export default new Router({
     }
   ]
 });
+
+// handle authentication before each route is processed
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (store.getters["auth/isLoggedIn"]) {
+      // the user is authenticated
+      next();
+    } else {
+      // the user is not authenticated
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
+    }
+  } else {
+    // this route does not require authentication
+    next(); // make sure to always call next()!
+  }
+});
+
+export default router;
