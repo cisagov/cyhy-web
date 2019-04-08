@@ -24,7 +24,6 @@ export default {
       });
     },
     viewer: function() {
-      console.log("click");
       this.$store.dispatch("auth/viewer");
     }
   }
