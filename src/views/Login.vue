@@ -75,12 +75,14 @@ export default {
     }
   },
   watch: {
+    // eslint-disable-next-line
     errorMessage(newValue, oldValue) {
       if (newValue != null) {
         // if the error message is set, clear submitted flag so the user can try again.
         this.submitted = false;
       }
     },
+    // eslint-disable-next-line
     isLoggedIn(newValue, oldValue) {
       // send the user on their way once they are logged in
       if (newValue == true) {
