@@ -50,14 +50,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Login",
   data: function() {
     return { email: "", password: "", submitted: false };
   },
-  computed: { ...mapState("auth", ["errorMessage"]) },
+  computed: {
+    ...mapState("auth", ["errorMessage"]),
+    ...mapGetters("auth", ["isLoggedIn"])
+  },
   methods: {
     handleSubmit() {
       this.submitted = true;
@@ -76,6 +79,19 @@ export default {
       if (newValue != null) {
         // if the error message is set, clear submitted flag so the user can try again.
         this.submitted = false;
+      }
+    },
+    isLoggedIn(newValue, oldValue) {
+      // send the user on their way once they are logged in
+      if (newValue == true) {
+        if (this.$route.query.redirect) {
+          // a redirect was passed via a query parameter
+          this.$router.push(this.$route.query.redirect);
+        } else {
+          // no redirect present, send them to the default starting page
+          // TODO set an alias to the default route
+          this.$router.push({ name: "diagnostics" });
+        }
       }
     }
   }
