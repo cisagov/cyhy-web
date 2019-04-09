@@ -9,6 +9,8 @@ Vue.use(Router);
 // which is lazy-loaded when the route is visited.
 
 const router = new Router({
+  // https://router.vuejs.org/guide/essentials/history-mode.html
+  mode: "history",
   routes: [
     {
       path: "/",
