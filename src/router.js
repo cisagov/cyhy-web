@@ -61,8 +61,16 @@ router.beforeEach((to, from, next) => {
     if (store.getters["auth/isLoggedIn"]) {
       // the user is authenticated
       next();
-    } else {
+    } else if (
       // the user is not authenticated
+      // see if we can get an accessToken via refresh
+      store.state.auth.refreshToken &&
+      store.dispatch("auth/refresh")
+    ) {
+      // the refresh was successful, we now have an accessToken
+      next();
+    } else {
+      // the user needs to login.  Save the path for a future redirect.
       next({
         path: "/login",
         query: { redirect: to.fullPath }
