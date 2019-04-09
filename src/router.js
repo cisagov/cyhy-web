@@ -42,7 +42,7 @@ const router = new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue"),
       meta: {
-        requiresAuth: true
+        requiresFreshAuth: true
       }
     },
     {
@@ -70,6 +70,27 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // this route does not require authentication
+    next(); // make sure to always call next()!
+  }
+});
+
+// handle authentication before each route is processed
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresFreshAuth)) {
+    // this route requires a "fresh" acessToken
+    // if not, redirect to login page to get one.
+    if (store.getters["auth/isFresh"]) {
+      // the user is authenticated with a fresh token
+      next();
+    } else {
+      // the user is not authenticated with a fresh token
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
+    }
+  } else {
+    // this route does not require fresh authentication
     next(); // make sure to always call next()!
   }
 });

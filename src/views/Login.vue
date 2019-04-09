@@ -52,6 +52,17 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 
+function doSucessfulLogin(caller_this) {
+  if (caller_this.$route.query.redirect) {
+    // a redirect was passed via a query parameter
+    caller_this.$router.push(caller_this.$route.query.redirect);
+  } else {
+    // no redirect present, send them to the default starting page
+    // TODO set an alias to the default route
+    caller_this.$router.push({ name: "diagnostics" });
+  }
+}
+
 export default {
   name: "Login",
   data: function() {
@@ -59,7 +70,7 @@ export default {
   },
   computed: {
     ...mapState("auth", ["errorMessage"]),
-    ...mapGetters("auth", ["isLoggedIn"])
+    ...mapGetters("auth", ["isLoggedIn", "isFresh"])
   },
   methods: {
     handleSubmit() {
@@ -86,14 +97,13 @@ export default {
     isLoggedIn(newValue, oldValue) {
       // send the user on their way once they are logged in
       if (newValue == true) {
-        if (this.$route.query.redirect) {
-          // a redirect was passed via a query parameter
-          this.$router.push(this.$route.query.redirect);
-        } else {
-          // no redirect present, send them to the default starting page
-          // TODO set an alias to the default route
-          this.$router.push({ name: "diagnostics" });
-        }
+        doSucessfulLogin(this);
+      }
+    },
+    isFresh(newValue, oldValue) {
+      //a freshness change has the same effect as a login
+      if (newValue == true) {
+        doSucessfulLogin(this);
       }
     }
   }

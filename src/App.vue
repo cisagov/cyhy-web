@@ -3,6 +3,7 @@
     <div v-if="isLoggedIn" id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
+      <router-link to="/secure">Secure</router-link> |
       <router-link to="/login">Login</router-link> |
       <a @click="viewer">Viewer</a> |
       <span><a @click="logout">Logout</a></span>
