@@ -7,7 +7,7 @@
           <sui-header-content>Log-in to your account</sui-header-content>
         </h2>
 
-        <sui-form @submit.prevent="handleSubmit">
+        <sui-form @submit.prevent="handleSubmit" :error="!!errorMessage">
           <sui-segment stacked>
             <sui-form-field>
               <sui-input
@@ -36,13 +36,13 @@
               >Login</sui-button
             >
           </sui-segment>
-        </sui-form>
-        <div v-if="errorMessage" class="ui negative message">
-          <div class="header">
-            {{ errorMessage }}
+          <div class="ui error message">
+            <div class="header">
+              {{ errorMessage }}
+            </div>
+            <p>Please verify your e-mail and password are correct.</p>
           </div>
-          <p>Please verify your e-mail and password are correct.</p>
-        </div>
+        </sui-form>
         <sui-message>New to CyHy? <a href="#">Sign Up</a></sui-message>
       </sui-grid-column>
     </sui-grid>
