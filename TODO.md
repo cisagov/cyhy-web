@@ -1,1 +1,2 @@
 - [x] get uid on refresh
+- [ ] store refresh token jti in database
