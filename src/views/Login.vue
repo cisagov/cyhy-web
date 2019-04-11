@@ -100,6 +100,7 @@ export default {
         doSucessfulLogin(this);
       }
     },
+    // eslint-disable-next-line
     isFresh(newValue, oldValue) {
       //a freshness change has the same effect as a login
       if (newValue == true) {
