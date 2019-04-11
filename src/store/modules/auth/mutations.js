@@ -40,7 +40,8 @@ export default {
   clearAccessToken(state) {
     state.accessToken = null;
   },
-  refresh(state, { accessToken }) {
+  refresh(state, { accessToken, viewer }) {
     state.accessToken = accessToken;
+    state.viewer = viewer;
   }
 };

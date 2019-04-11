@@ -79,6 +79,7 @@ export default {
           refresh {
             result {
               accessToken
+              uid
               message
             }
           }
@@ -88,7 +89,8 @@ export default {
       context: { useRefreshToken: true }
     });
     commit("refresh", {
-      accessToken: response.data.refresh.result.accessToken
+      accessToken: response.data.refresh.result.accessToken,
+      viewer: response.data.refresh.result.uid
     });
     return response; // Returning the response for the apollo-link to use
   }
