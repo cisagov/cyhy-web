@@ -6,6 +6,13 @@
 This project implements a web client to access the [cyhy-api](https://github.com/cisagov/cyhy-api)
 
 ## Requirements
+ - `nodejs 11.13.0`
+ - `npm 6.9.0`
+
+### Development Environment Setup
+- Install [vuejs](https://vuejs.org/v2/guide/installation.html): `npm install vue`
+- Install the [vuejs-cli](https://cli.vuejs.org): `npm install -g @vue/cli`
+
 
 ## Project setup
 
@@ -14,10 +21,15 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
-
+```
+vue ui
+```
+-or-
 ```
 npm run serve
 ```
+
+By default the application will be available at: [http://localhost:8080/](http://localhost:8080/)
 
 ### Compiles and minifies for production
 
@@ -36,7 +48,3 @@ npm run test
 ```
 npm run lint
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
