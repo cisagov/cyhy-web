@@ -1,2 +1,4 @@
 - [x] get uid on refresh
-- [ ] store refresh token jti in database
+- [x] store refresh token jti in database
+- [s] revoke refresh token when client requests Logout
+- [ ] simplify graphql mutation results (remove result field)
