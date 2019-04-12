@@ -53,7 +53,29 @@ export default {
       });
     }
   },
-  async logout({ commit }) {
+  async logout(
+    // eslint-disable-next-line
+    { dispatch, commit, getters, rootGetters }
+  ) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation {
+          logout {
+            result {
+              message
+              isSuccess
+            }
+          }
+        }
+      `,
+      // tell the graphql client to use the refreshToken in the Authentication header
+      context: { useRefreshToken: true }
+    });
+    if (response.data.logout.result.isSuccess == false) {
+      // failure
+      // eslint-disable-next-line no-console
+      console.error(response.data.logout.result.message);
+    }
     commit("logout");
   },
   async viewer(
@@ -78,9 +100,15 @@ export default {
         mutation {
           refresh {
             result {
-              accessToken
-              uid
-              message
+              __typename
+              ... on RefreshField {
+                uid
+                accessToken
+              }
+              ... on ResponseMessageField {
+                isSuccess
+                message
+              }
             }
           }
         }
@@ -88,10 +116,19 @@ export default {
       // tell the graphql client to use the refreshToken in the Authentication header
       context: { useRefreshToken: true }
     });
-    commit("refresh", {
-      accessToken: response.data.refresh.result.accessToken,
-      viewer: response.data.refresh.result.uid
-    });
+    if (response.data.refresh.result.isSuccess == false) {
+      // failure
+      // the refresh token may have been revoked or expired
+      // eslint-disable-next-line no-console
+      console.error(response.data.refresh.result.message);
+      commit("logout");
+    } else {
+      // success
+      commit("refresh", {
+        accessToken: response.data.refresh.result.accessToken,
+        viewer: response.data.refresh.result.uid
+      });
+    }
     return response; // Returning the response for the apollo-link to use
   }
 };

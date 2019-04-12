@@ -68,6 +68,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch("auth/refresh")
     ) {
       // the refresh was successful, we now have an accessToken
+      // or we the refresh token was revoked and we were logged out.
       next();
     } else {
       // the user needs to login.  Save the path for a future redirect.
