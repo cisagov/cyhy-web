@@ -2,14 +2,33 @@
   <div class="background">
     <sui-grid centered vertical-align="top">
       <sui-grid-column>
-        <sui-image src="ch.svg" centered />
         <h2 is="sui-header" color="violet" image>
-          <sui-header-content>Sign in to CyHy</sui-header-content>
+          <sui-header-content>Create your CyHy account</sui-header-content>
         </h2>
 
         <sui-form @submit.prevent="handleSubmit" :error="!!errorMessage">
           <sui-segment stacked>
             <sui-form-field>
+              <label>Name</label>
+              <div class="two fields">
+                <div class="field">
+                  <sui-input
+                    type="text"
+                    placeholder="First Name"
+                    v-model="email"
+                  />
+                </div>
+                <div class="field">
+                  <sui-input
+                    type="text"
+                    placeholder="Last Name"
+                    v-model="email"
+                  />
+                </div>
+              </div>
+            </sui-form-field>
+            <sui-form-field>
+              <label>E-mail address</label>
               <sui-input
                 type="email"
                 placeholder="E-mail address"
@@ -19,6 +38,7 @@
               />
             </sui-form-field>
             <sui-form-field>
+              <label>Password</label>
               <sui-input
                 type="password"
                 placeholder="Password"
@@ -27,13 +47,19 @@
                 v-model="password"
               />
             </sui-form-field>
+            <div class="field">
+              <div class="ui checkbox">
+                <input type="checkbox" tabindex="0" class="hidden" />
+                <label>I agree to the Terms and Conditions</label>
+              </div>
+            </div>
             <sui-button
               size="large"
-              color="violet"
+              color="green"
               fluid
               :loading="submitted"
               :disabled="submitted"
-              >Login</sui-button
+              >Create an account</sui-button
             >
           </sui-segment>
           <div class="ui error message">
@@ -43,10 +69,6 @@
             <p>Please verify your e-mail and password are correct.</p>
           </div>
         </sui-form>
-        <sui-message
-          >New to CyHy?
-          <router-link to="/join">Sign Up</router-link></sui-message
-        >
       </sui-grid-column>
     </sui-grid>
   </div>
@@ -116,7 +138,7 @@ export default {
 
 <style lang="css" scoped>
 .background {
-  background-color: #DADADA !important;
+  /* background-color: #DADADA !important; */
   height: 100vh;
   margin: 1em 0;
 }
@@ -126,7 +148,7 @@ export default {
 }
 
 .column {
-  max-width: 450px;
-  text-align: center !important;
+  max-width: 800px;
+  text-align: left !important;
 }
 </style>

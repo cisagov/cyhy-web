@@ -26,6 +26,7 @@ const router = new Router({
       name: "about",
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue"),
+      props: { message: "Freshness not guaranteed." },
       meta: {
         requiresAuth: true
       }
@@ -37,10 +38,17 @@ const router = new Router({
         import(/* webpackChunkName: "login" */ "./views/Login.vue")
     },
     {
+      path: "/join",
+      name: "join",
+      component: () =>
+        import(/* webpackChunkName: "login" */ "./views/Join.vue")
+    },
+    {
       path: "/secure",
       name: "secure",
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue"),
+      props: { message: "Freshness GUARANTEED!" },
       meta: {
         requiresFreshAuth: true
       }
