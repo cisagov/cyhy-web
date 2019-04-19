@@ -10,15 +10,18 @@
         >About</router-link
       >
       <router-link to="/secure" v-if="isLoggedIn" class="item"
-        >Secure</router-link
+        ><i class="lock icon"></i>Secure</router-link
       >
       <a @click="viewer" class="item">Viewer</a>
       <router-link v-if="!isLoggedIn" to="/login" class="item right floated"
         >Sign In</router-link
       >
-      <router-link v-if="!isLoggedIn" to="/join" class="item"
-        >Sign Up</router-link
-      >
+      <div v-if="!isLoggedIn" class="item">
+        <!-- <router-link to="/join" tag="span">Sign Up</router-link> -->
+        <div @click="$router.push('/join')" class="ui primary button">
+          Sign Up
+        </div>
+      </div>
       <a v-if="isLoggedIn" class="item right floated" @click="logout"
         >Sign Out</a
       >
