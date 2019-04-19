@@ -17,7 +17,6 @@
         >Sign In</router-link
       >
       <div v-if="!isLoggedIn" class="item">
-        <!-- <router-link to="/join" tag="span">Sign Up</router-link> -->
         <div @click="$router.push('/join')" class="ui primary button">
           Sign Up
         </div>
