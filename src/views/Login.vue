@@ -11,7 +11,7 @@
           <sui-segment stacked>
             <sui-form-field>
               <sui-input
-                type="email"
+                type="text"
                 placeholder="E-mail address"
                 icon="mail"
                 icon-position="left"
@@ -32,7 +32,7 @@
               color="violet"
               fluid
               :loading="submitted"
-              :disabled="submitted"
+              :disabled="submitted || !formFilledOut"
               >Login</sui-button
             >
           </sui-segment>
@@ -73,7 +73,11 @@ export default {
   },
   computed: {
     ...mapState("auth", ["errorMessage"]),
-    ...mapGetters("auth", ["isLoggedIn", "isFresh"])
+    ...mapGetters("auth", ["isLoggedIn", "isFresh"]),
+    formFilledOut() {
+      // used to disable the submit button
+      return this.password && this.email;
+    }
   },
   methods: {
     handleSubmit() {
