@@ -5,4 +5,4 @@ ignore: {}
 patch:
   SNYK-JS-LODASH-450202:
     - semantic-ui-vue > lodash:
-        patched: '2019-07-04T01:15:23.942Z'
+        patched: '2019-07-05T23:31:45.064Z'
