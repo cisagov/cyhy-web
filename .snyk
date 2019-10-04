@@ -6,3 +6,8 @@ patch:
   SNYK-JS-LODASH-450202:
     - semantic-ui-vue > lodash:
         patched: '2019-07-05T23:31:45.064Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T01:14:55.813Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T01:14:55.813Z'
